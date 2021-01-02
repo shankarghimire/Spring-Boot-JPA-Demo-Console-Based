@@ -1,6 +1,7 @@
 package com.example;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -76,15 +77,28 @@ public class SpringBootJpaDemoApplication {
 					//Option for Displaying All Records
 					Iterable<User> iterable = userRepository.findAll();
 					
+					//Method I:
 					System.out.println("All Users Info: ");
 					iterable.forEach(u ->{
 						System.out.println(u);
 					});
+					
+					//Method II:
+//					System.out.println("All Users Info: ");
 //					for(User u: iterable) {
 //						System.out.println(u);
 //						//listUsers.add(u);
 //					}
+					
+					//Method III:
+//					Iterator<User> itr = iterable.iterator();
+//					while(itr.hasNext()) {
+//						User u1 = new User();
+//						u1 = itr.next();
+//						System.out.println(u1);
+//					}
 					//System.out.println(listUsers);
+					
 					break;
 				case 4:
 					//Option for Update
@@ -123,7 +137,10 @@ public class SpringBootJpaDemoApplication {
 					optional = userRepository.findById(id);
 					if(optional.isPresent()) {
 						User user3 = optional.get();
-						userRepository.delete(user3);
+//						userRepository.delete(user3);
+						
+						//Delete the record by Id
+						userRepository.deleteById(id);
 						System.out.println("The user has been deleted !!! : " + user3);						
 					}else {
 						System.out.println("User Not Found for the Id: " + id );
